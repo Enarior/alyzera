@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://kvrmtt8q8qs4"]
+
+[ext_resource type="Script" uid="uid://cpyskoqld7wm0" path="res://src/gameplay/portal/portal.gd" id="1_0i3j6"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kbiga"]
+size = Vector3(0.2, 3, 2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_b1ri8"]
+size = Vector3(0.2, 3, 2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0mdt0"]
+transparency = 1
+albedo_color = Color(0.78431374, 0.15686275, 1, 0.62352943)
+
+[node name="Portal" type="Area3D" unique_id=2000444054]
+script = ExtResource("1_0i3j6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=813873895]
+shape = SubResource("BoxShape3D_kbiga")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1359603610]
+mesh = SubResource("BoxMesh_b1ri8")
+surface_material_override/0 = SubResource("StandardMaterial3D_0mdt0")
+
+[node name="Label3D" type="Label3D" parent="." unique_id=1288402550]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 1.6249499, 0)
+text = "Destination"
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

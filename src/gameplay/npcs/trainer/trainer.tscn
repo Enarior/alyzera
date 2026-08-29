@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://qdu7vukxi0qs"]
+
+[ext_resource type="Material" uid="uid://v047lycag6c6" path="res://src/gameplay/npcs/trainer/trainer_skin.tres" id="1_lo3od"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_0mdt0"]
+material = ExtResource("1_lo3od")
+radius = 0.3
+height = 1.2
+
+[sub_resource type="SphereMesh" id="SphereMesh_kbiga"]
+material = ExtResource("1_lo3od")
+radius = 0.15
+height = 0.2
+
+[sub_resource type="BoxMesh" id="BoxMesh_b1ri8"]
+material = ExtResource("1_lo3od")
+size = Vector3(0.1, 0.7, 0.15)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_b1ri8"]
+height = 2.2
+
+[node name="CharacterBody3D" type="CharacterBody3D" unique_id=326103022]
+
+[node name="Trainer" type="Node3D" parent="." unique_id=2021143174]
+
+[node name="Body" type="Node3D" parent="." unique_id=137094759]
+
+[node name="Body" type="MeshInstance3D" parent="Body" unique_id=1190502428]
+mesh = SubResource("CapsuleMesh_0mdt0")
+
+[node name="Head" type="MeshInstance3D" parent="Body" unique_id=1684824579]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.68933547, 0)
+mesh = SubResource("SphereMesh_kbiga")
+
+[node name="LeftArm" type="MeshInstance3D" parent="Body" unique_id=2046302204]
+transform = Transform3D(1, 0, 0, 0, 0.8660254, -0.5, 0, 0.5, 0.8660254, 0, 0.19, -0.3)
+mesh = SubResource("BoxMesh_b1ri8")
+
+[node name="RightArm" type="MeshInstance3D" parent="Body" unique_id=587869291]
+transform = Transform3D(1, 0, 0, 0, 0.8660254, 0.5, 0, -0.5, 0.8660254, 0, 0.19, 0.3)
+mesh = SubResource("BoxMesh_b1ri8")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1116391294]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.06605333, 0)
+shape = SubResource("CapsuleShape3D_b1ri8")

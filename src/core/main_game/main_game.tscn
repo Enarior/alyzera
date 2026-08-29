@@ -1,0 +1,78 @@
+[gd_scene format=3 uid="uid://d27tq4r3kp8qr"]
+
+[ext_resource type="Script" uid="uid://dxfi0mrtngyn7" path="res://src/core/main_game/main_game.gd" id="1_3fed5"]
+[ext_resource type="PackedScene" uid="uid://bxnbd203wci4j" path="res://src/debug/debug_overlay.tscn" id="2_6yl8a"]
+
+[node name="MainGame" type="Node" unique_id=2126897557]
+process_mode = 3
+script = ExtResource("1_3fed5")
+
+[node name="Systems" type="Node" parent="." unique_id=155906486]
+
+[node name="World" type="Node3D" parent="." unique_id=777996568]
+process_mode = 1
+
+[node name="LevelRoot" type="Node3D" parent="World" unique_id=224915095]
+
+[node name="EntityRoot" type="Node3D" parent="World" unique_id=1581218451]
+
+[node name="EffectRoot" type="Node3D" parent="World" unique_id=1025481199]
+
+[node name="HUDLayer" type="CanvasLayer" parent="." unique_id=506112275]
+process_mode = 1
+layer = 10
+
+[node name="HUDRoot" type="Control" parent="HUDLayer" unique_id=2116593068]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PauseLayer" type="CanvasLayer" parent="." unique_id=1978506572]
+process_mode = 2
+layer = 20
+
+[node name="PauseRoot" type="Control" parent="PauseLayer" unique_id=1236629972]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="TransitionLayer" type="CanvasLayer" parent="." unique_id=1366476097]
+process_mode = 3
+layer = 100
+
+[node name="TransitionRoot" type="Control" parent="TransitionLayer" unique_id=1562582789]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="DebugLayer" type="CanvasLayer" parent="." unique_id=860713392]
+process_mode = 3
+layer = 128
+
+[node name="DebugRoot" type="Control" parent="DebugLayer" unique_id=478651805]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="DebugOverlay" parent="DebugLayer/DebugRoot" unique_id=716528552 instance=ExtResource("2_6yl8a")]
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+grow_horizontal = 1
+grow_vertical = 1
