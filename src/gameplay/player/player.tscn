@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://ccmaxn3cpfig0"]
+
+[ext_resource type="Script" uid="uid://dv2dy7f23so2e" path="res://src/gameplay/player/player.gd" id="1_kh5p4"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_v2nw7"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v2nw7"]
+albedo_color = Color(0.58853716, 0.7666255, 1.1551381e-06, 1)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_71anj"]
+
+[node name="CharacterBody3D" type="CharacterBody3D" unique_id=1168319896 groups=["player"]]
+script = ExtResource("1_kh5p4")
+
+[node name="PlayerCamera" type="Camera3D" parent="." unique_id=1530501927]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9871874, 0)
+keep_aspect = 0
+current = true
+
+[node name="Pivot" type="Node3D" parent="." unique_id=473521453]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Pivot" unique_id=1671712082]
+mesh = SubResource("CapsuleMesh_v2nw7")
+surface_material_override/0 = SubResource("StandardMaterial3D_v2nw7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=764650182]
+shape = SubResource("CapsuleShape3D_71anj")

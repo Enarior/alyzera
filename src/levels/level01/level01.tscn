@@ -1,0 +1,58 @@
+[gd_scene format=3 uid="uid://jh4aj4023ns7"]
+
+[ext_resource type="Script" uid="uid://cah0ac0sfe7di" path="res://src/levels/level01/level01.gd" id="1_ir8wj"]
+[ext_resource type="Texture2D" uid="uid://1e31pkc7wip4" path="res://assets/art/world/floor_09.png" id="2_2bq4j"]
+[ext_resource type="PackedScene" uid="uid://kvrmtt8q8qs4" path="res://src/gameplay/portal/portal.tscn" id="2_u5c0w"]
+[ext_resource type="PackedScene" uid="uid://biphp16q8pund" path="res://src/gameplay/enemies/golem/golem.tscn" id="3_flvvy"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_u5c0w"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_flvvy"]
+sky_material = SubResource("ProceduralSkyMaterial_u5c0w")
+
+[sub_resource type="Environment" id="Environment_sthg2"]
+background_mode = 2
+sky = SubResource("Sky_flvvy")
+glow_enabled = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_bte1b"]
+size = Vector3(25, 1, 25)
+
+[sub_resource type="BoxMesh" id="BoxMesh_5vsvk"]
+size = Vector3(25, 1, 25)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fqiju"]
+albedo_texture = ExtResource("2_2bq4j")
+uv1_triplanar = true
+
+[node name="Level01" type="Node3D" unique_id=86322473 groups=["levels"]]
+script = ExtResource("1_ir8wj")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=68372209]
+environment = SubResource("Environment_sthg2")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1018081810]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Entities" type="Node3D" parent="." unique_id=1152946124]
+
+[node name="PlayerSpawn" type="Marker3D" parent="Entities" unique_id=36875889]
+
+[node name="Portal" parent="Entities" unique_id=2000444054 instance=ExtResource("2_u5c0w")]
+transform = Transform3D(-0.8994799, 0, -0.4369622, 0, 1, 0, 0.4369622, 0, -0.8994799, 2.6216753, 1.5, -1.2911705)
+
+[node name="Golem" parent="Entities" unique_id=940082656 instance=ExtResource("3_flvvy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7463932, 0.75, 6.458487)
+
+[node name="Floor" type="StaticBody3D" parent="." unique_id=1255152001]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor" unique_id=1595873747]
+shape = SubResource("BoxShape3D_bte1b")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor" unique_id=1627642196]
+mesh = SubResource("BoxMesh_5vsvk")
+surface_material_override/0 = SubResource("StandardMaterial3D_fqiju")
