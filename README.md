@@ -1,3 +1,5 @@
-Single player 3D game template for Godot 4.
+Coop CRPG based on Alyzera system by Antares and ?
 
-Basic project layout and player movement.
+Turn based combat, progression through unlockin new specs and skills, beat harder dungeons each time.
+
+Made with Godot4.
