@@ -23,6 +23,7 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	input_dir = Input.get_vector("strafe_left", "strafe_right", "backward", "forward")
 
+
 func _physics_process(delta: float) -> void:
 	check_jump_input()
 	process_gravity()
@@ -38,6 +39,7 @@ func _physics_process(delta: float) -> void:
 		velocity.z = move_toward(velocity.z, desired_velocity.z, acceleration * delta)
 	move_and_slide()
 
+
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		rotate_y(-event.relative.x * mouse_sensitivity) # PI 3.14 => 180 degrees 
@@ -49,6 +51,10 @@ func check_jump_input() -> void:
 	if is_on_floor() and Input.is_action_just_pressed("jump"):
 		velocity.y = jump_force
 
+
 func process_gravity() -> void:
 	if not is_on_floor():
 		velocity.y -= gravity
+
+func play_turn():
+	await get_tree().create_timer(2).timeout

@@ -66,6 +66,7 @@ func _deferred_load_level(level_scene_uid : String) -> void:
 	level_root.add_child(_current_level)
 
 	_place_player_at_level_spawn()
+	_spawn_npcs()
 	#_setup_level_camera()
 
 
@@ -82,6 +83,8 @@ func _init_player() -> void:
 		return
 
 	entity_root.add_child(player)
+	%TurnManager.add_unit(player) # TEMP
+
 
 
 ## Finds the default spawn location in currently loaded level, and places
@@ -95,6 +98,42 @@ func _place_player_at_level_spawn() -> void:
 		return
 
 	player.global_position = _current_level.get_default_player_spawn()
+
+func _spawn_npcs():
+	var spawns = _current_level.get_npc_spawns()
+
+
+	for spawn in spawns:
+		spawn_npc(spawn)
+
+
+func spawn_npc(spawn: Marker3D):
+	var npc_scene_uid = spawn.npc_scene_uid
+	var npc_scene : PackedScene = ResourceLoader.load(npc_scene_uid) as PackedScene
+	
+	if npc_scene == null:
+		push_error("Could not load npc scene: " + npc_scene_uid)
+		return
+		
+	var npc = null
+	var state = npc_scene.get_state()
+	var node_groups = state.get_node_groups(0)
+
+	
+	if "mob_npc" in node_groups:
+		npc = npc_scene.instantiate() as MobNpc
+		npc.vision_entered.connect(%TurnManager.initialize)
+		%TurnManager.add_unit(npc) # TEMP
+	elif "passive_npc" in node_groups:
+		npc = npc_scene.instantiate() as PassiveNpc
+	
+	if npc == null:
+		push_error("Loaded npc scene does not extend NPc or DNE: " + npc_scene_uid)
+		return
+	
+	
+	entity_root.add_child(npc)
+	npc.global_position = spawn.global_position
 
 ## Attaches player to the current camera as the target
 func _setup_level_camera() -> void:
