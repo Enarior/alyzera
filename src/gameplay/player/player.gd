@@ -16,15 +16,23 @@ const MAX_ANGLE_LOOK_DOWN := deg_to_rad(-50)
 
 var input_dir := Vector2.ZERO
 
+func enter_tree():
+	set_multiplayer_authority(name.to_int())
+
+
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 
 func _process(_delta: float) -> void:
+	if !is_multiplayer_authority(): return
+
 	input_dir = Input.get_vector("strafe_left", "strafe_right", "backward", "forward")
 
 
 func _physics_process(delta: float) -> void:
+	if !is_multiplayer_authority(): return
+
 	check_jump_input()
 	process_gravity()
 	

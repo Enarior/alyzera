@@ -86,7 +86,6 @@ func _init_player() -> void:
 	%TurnManager.add_unit(player) # TEMP
 
 
-
 ## Finds the default spawn location in currently loaded level, and places
 ##  the Player at that position.
 func _place_player_at_level_spawn() -> void:
@@ -101,7 +100,6 @@ func _place_player_at_level_spawn() -> void:
 
 func _spawn_npcs():
 	var spawns = _current_level.get_npc_spawns()
-
 
 	for spawn in spawns:
 		spawn_npc(spawn)
@@ -131,9 +129,9 @@ func spawn_npc(spawn: Marker3D):
 		push_error("Loaded npc scene does not extend NPc or DNE: " + npc_scene_uid)
 		return
 	
-	
 	entity_root.add_child(npc)
 	npc.global_position = spawn.global_position
+
 
 ## Attaches player to the current camera as the target
 func _setup_level_camera() -> void:

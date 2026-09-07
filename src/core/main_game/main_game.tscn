@@ -3,6 +3,8 @@
 [ext_resource type="Script" uid="uid://dxfi0mrtngyn7" path="res://src/core/main_game/main_game.gd" id="1_3fed5"]
 [ext_resource type="PackedScene" uid="uid://dttwvv3r5a6p3" path="res://src/gameplay/turn_manager/turn_manager.tscn" id="2_6n4xl"]
 [ext_resource type="PackedScene" uid="uid://bxnbd203wci4j" path="res://src/debug/debug_overlay.tscn" id="2_6yl8a"]
+[ext_resource type="Script" uid="uid://c8b8blum7726h" path="res://src/core/multiplayer/multiplayer_player_spawner.gd" id="4_ibp4d"]
+[ext_resource type="PackedScene" uid="uid://ccmaxn3cpfig0" path="res://src/gameplay/player/player.tscn" id="5_tk58t"]
 
 [node name="MainGame" type="Node" unique_id=2126897557]
 process_mode = 3
@@ -80,3 +82,8 @@ anchor_right = 0.0
 anchor_bottom = 0.0
 grow_horizontal = 1
 grow_vertical = 1
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=677663974]
+spawn_path = NodePath("../World/EntityRoot")
+script = ExtResource("4_ibp4d")
+network_player = ExtResource("5_tk58t")

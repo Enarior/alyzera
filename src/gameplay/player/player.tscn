@@ -9,6 +9,8 @@ albedo_color = Color(0.58853716, 0.7666255, 1.1551381e-06, 1)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_71anj"]
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_kh5p4"]
+
 [node name="Player" type="CharacterBody3D" unique_id=1168319896 groups=["has_turn", "player"]]
 script = ExtResource("1_kh5p4")
 
@@ -26,3 +28,6 @@ surface_material_override/0 = SubResource("StandardMaterial3D_v2nw7")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=764650182]
 shape = SubResource("CapsuleShape3D_71anj")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1754559184]
+replication_config = SubResource("SceneReplicationConfig_kh5p4")
