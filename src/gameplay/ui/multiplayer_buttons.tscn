@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://cqwx7f7hp2o3k"]
+
+[ext_resource type="Script" uid="uid://dthn0hwblkbfr" path="res://src/gameplay/ui/multiplayer_buttons.gd" id="1_rop7p"]
+
+[node name="MultiplayerButtons" type="Control" unique_id=1385616990]
+layout_mode = 3
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -30.0
+offset_right = 123.0
+offset_bottom = 212.0
+grow_vertical = 2
+script = ExtResource("1_rop7p")
+
+[node name="ServerButton" type="Button" parent="." unique_id=643971723]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -29.0
+offset_top = -15.5
+offset_right = 29.0
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Server"
+
+[node name="ClientButton" type="Button" parent="." unique_id=2120773305]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -26.5
+offset_top = 57.5
+offset_right = 26.5
+offset_bottom = 88.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Client"
+
+[connection signal="pressed" from="ServerButton" to="." method="_on_server_button_pressed"]
+[connection signal="pressed" from="ClientButton" to="." method="_on_client_button_pressed"]

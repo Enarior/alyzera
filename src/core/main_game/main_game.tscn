@@ -2,6 +2,8 @@
 
 [ext_resource type="Script" uid="uid://dxfi0mrtngyn7" path="res://src/core/main_game/main_game.gd" id="1_3fed5"]
 [ext_resource type="PackedScene" uid="uid://bxnbd203wci4j" path="res://src/debug/debug_overlay.tscn" id="2_6yl8a"]
+[ext_resource type="PackedScene" uid="uid://cqwx7f7hp2o3k" path="res://src/gameplay/ui/multiplayer_buttons.tscn" id="2_ibp4d"]
+[ext_resource type="Script" uid="uid://bsflm3q0n2tt8" path="res://src/core/multiplayer/multiplayer_spawner.gd" id="3_6n4xl"]
 
 [node name="MainGame" type="Node" unique_id=2126897557]
 process_mode = 3
@@ -30,21 +32,49 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="MultiplayerButtons" parent="HUDLayer/HUDRoot" unique_id=1385616990 instance=ExtResource("2_ibp4d")]
+layout_mode = 1
+
 [node name="PauseLayer" type="CanvasLayer" parent="." unique_id=1978506572]
 process_mode = 2
 layer = 20
 
 [node name="PauseRoot" type="Control" parent="PauseLayer" unique_id=1236629972]
+unique_name_in_owner = true
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 1
+mouse_filter = 2
+
+[node name="ColorRect" type="ColorRect" parent="PauseLayer/PauseRoot" unique_id=1664629972]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.326184, 0.32618403, 0.32618383, 0.6509804)
+
+[node name="Label" type="Label" parent="PauseLayer/PauseRoot" unique_id=405165158]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -23.5
+offset_top = -11.5
+offset_right = 23.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Pause"
 
 [node name="TransitionLayer" type="CanvasLayer" parent="." unique_id=1366476097]
-process_mode = 3
 layer = 100
 
 [node name="TransitionRoot" type="Control" parent="TransitionLayer" unique_id=1562582789]
@@ -54,7 +84,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 1
+mouse_filter = 2
 
 [node name="DebugLayer" type="CanvasLayer" parent="." unique_id=860713392]
 process_mode = 3
@@ -62,17 +92,20 @@ layer = 128
 
 [node name="DebugRoot" type="Control" parent="DebugLayer" unique_id=478651805]
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 1
+anchors_preset = 0
+mouse_filter = 2
+mouse_behavior_recursive = 1
 
 [node name="DebugOverlay" parent="DebugLayer/DebugRoot" unique_id=716528552 instance=ExtResource("2_6yl8a")]
-layout_mode = 0
-anchors_preset = 0
-anchor_right = 0.0
-anchor_bottom = 0.0
-grow_horizontal = 1
-grow_vertical = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+mouse_filter = 2
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=1148424580]
+_spawnable_scenes = PackedStringArray("uid://ccmaxn3cpfig0")
+spawn_path = NodePath("../World/EntityRoot")
+script = ExtResource("3_6n4xl")
