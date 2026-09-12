@@ -30,7 +30,7 @@ func _ready() -> void:
 
 	_load_level(LEVEL_00_UID, false)
 	
-	#Global.change_level.connect(_load_level)
+	Global.change_level.connect(_load_level)
 	$MultiplayerSpawner.player_spawned.connect(_init_player)
 	
 func _input(event:InputEvent):

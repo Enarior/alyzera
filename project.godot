@@ -31,6 +31,13 @@ window/size/viewport_height=1080
 movie_writer/video_quality=0.5
 movie_writer/movie_file="/home/wanou/Videos/portals.avi"
 
+[file_customization]
+
+folder_colors={
+"res://src/core/": "red",
+"res://src/gameplay/": "green"
+}
+
 [global_group]
 
 levels=""
