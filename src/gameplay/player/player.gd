@@ -36,6 +36,7 @@ func _process(_delta: float) -> void:
 	if multiplayer and ! is_multiplayer_authority(): return
 	input_dir = Input.get_vector("strafe_left", "strafe_right", "backward", "forward")
 
+
 func _physics_process(delta: float) -> void:
 	if ! is_multiplayer_authority(): return
 	check_jump_input()
@@ -51,6 +52,7 @@ func _physics_process(delta: float) -> void:
 		velocity.x = move_toward(velocity.x, desired_velocity.x, acceleration * delta)
 		velocity.z = move_toward(velocity.z, desired_velocity.z, acceleration * delta)
 	move_and_slide()
+
 
 func _input(event: InputEvent) -> void:
 	if ! is_multiplayer_authority(): return
@@ -70,6 +72,10 @@ func check_jump_input() -> void:
 	if is_on_floor() and Input.is_action_just_pressed("jump"):
 		velocity.y = jump_force
 
+
 func process_gravity() -> void:
 	if not is_on_floor():
 		velocity.y -= gravity
+
+func play_turn():
+	await get_tree().create_timer(2).timeout

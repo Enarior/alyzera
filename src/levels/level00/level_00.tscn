@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://0l0q8fox2gtp" path="res://src/levels/level00/level_00.gd" id="1_6yyqq"]
 [ext_resource type="Texture2D" uid="uid://1e31pkc7wip4" path="res://assets/art/world/floor_09.png" id="2_g8h3h"]
 [ext_resource type="PackedScene" uid="uid://kvrmtt8q8qs4" path="res://src/gameplay/portal/portal.tscn" id="2_w78r2"]
-[ext_resource type="PackedScene" uid="uid://qdu7vukxi0qs" path="res://src/gameplay/npcs/trainer/trainer.tscn" id="3_2811t"]
+[ext_resource type="PackedScene" uid="uid://qdu7vukxi0qs" path="res://src/gameplay/npcs/passives/trainer/trainer.tscn" id="3_2811t"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_6yyqq"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -46,6 +46,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5201786, 1.5, 0)
 
 [node name="CharacterBody3D" parent="Entities" unique_id=326103022 instance=ExtResource("3_2811t")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0.46118355, 1, 5.7619863)
+
+[node name="NpcSpawners" type="Node3D" parent="Entities" unique_id=1527277075]
+unique_name_in_owner = true
 
 [node name="Floor" type="StaticBody3D" parent="." unique_id=1657731484]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)

@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://qdu7vukxi0qs"]
 
-[ext_resource type="Material" uid="uid://v047lycag6c6" path="res://src/gameplay/npcs/trainer/trainer_skin.tres" id="1_lo3od"]
+[ext_resource type="Material" uid="uid://v047lycag6c6" path="res://src/gameplay/npcs/passives/trainer/trainer_skin.tres" id="1_lo3od"]
+[ext_resource type="Script" uid="uid://dvbis6kebl3ye" path="res://src/gameplay/npcs/passives/trainer/trainer.gd" id="1_nwp5q"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_0mdt0"]
 material = ExtResource("1_lo3od")
@@ -19,9 +20,8 @@ size = Vector3(0.1, 0.7, 0.15)
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_b1ri8"]
 height = 2.2
 
-[node name="CharacterBody3D" type="CharacterBody3D" unique_id=326103022]
-
-[node name="Trainer" type="Node3D" parent="." unique_id=2021143174]
+[node name="Trainer" type="CharacterBody3D" unique_id=326103022]
+script = ExtResource("1_nwp5q")
 
 [node name="Body" type="Node3D" parent="." unique_id=137094759]
 

@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://d27tq4r3kp8qr"]
 
 [ext_resource type="Script" uid="uid://dxfi0mrtngyn7" path="res://src/core/main_game/main_game.gd" id="1_3fed5"]
+[ext_resource type="PackedScene" uid="uid://dttwvv3r5a6p3" path="res://src/gameplay/turn_manager/turn_manager.tscn" id="2_6n4xl"]
 [ext_resource type="PackedScene" uid="uid://bxnbd203wci4j" path="res://src/debug/debug_overlay.tscn" id="2_6yl8a"]
 [ext_resource type="PackedScene" uid="uid://cqwx7f7hp2o3k" path="res://src/gameplay/ui/multiplayer_buttons.tscn" id="2_ibp4d"]
 [ext_resource type="Script" uid="uid://bsflm3q0n2tt8" path="res://src/core/multiplayer/multiplayer_spawner.gd" id="3_6n4xl"]
@@ -9,7 +10,10 @@
 process_mode = 3
 script = ExtResource("1_3fed5")
 
-[node name="Systems" type="Node" parent="." unique_id=155906486]
+[node name="Systems" type="Node" parent="." unique_id=510041305]
+
+[node name="TurnManager" parent="Systems" unique_id=935003780 instance=ExtResource("2_6n4xl")]
+unique_name_in_owner = true
 
 [node name="World" type="Node3D" parent="." unique_id=777996568]
 process_mode = 1

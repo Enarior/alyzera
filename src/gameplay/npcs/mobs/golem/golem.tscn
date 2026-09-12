@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://biphp16q8pund"]
 
-[ext_resource type="Material" uid="uid://b8e3c4d2mtf7o" path="res://src/gameplay/enemies/golem/golem_skin.tres" id="1_8hv7l"]
-[ext_resource type="Script" uid="uid://da4llq85xl2k" path="res://src/gameplay/enemies/golem/golem.gd" id="1_oeobu"]
+[ext_resource type="Material" uid="uid://b8e3c4d2mtf7o" path="res://src/gameplay/npcs/mobs/golem/golem_skin.tres" id="1_8hv7l"]
+[ext_resource type="Script" uid="uid://da4llq85xl2k" path="res://src/gameplay/npcs/mobs/golem/golem.gd" id="1_oeobu"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_0tilx"]
 
@@ -19,9 +19,9 @@ radius = 0.15
 height = 1.0
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_b1ri8"]
-radius = 5.0
+radius = 2.0
 
-[node name="Golem" type="CharacterBody3D" unique_id=940082656]
+[node name="Golem" type="CharacterBody3D" unique_id=940082656 groups=["has_turn", "mob_npc"]]
 script = ExtResource("1_oeobu")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2097846199]

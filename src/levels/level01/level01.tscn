@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://cah0ac0sfe7di" path="res://src/levels/level01/level01.gd" id="1_ir8wj"]
 [ext_resource type="Texture2D" uid="uid://1e31pkc7wip4" path="res://assets/art/world/floor_09.png" id="2_2bq4j"]
 [ext_resource type="PackedScene" uid="uid://kvrmtt8q8qs4" path="res://src/gameplay/portal/portal.tscn" id="2_u5c0w"]
-[ext_resource type="PackedScene" uid="uid://biphp16q8pund" path="res://src/gameplay/enemies/golem/golem.tscn" id="3_flvvy"]
+[ext_resource type="PackedScene" uid="uid://bpgr25xbxna2s" path="res://src/levels/level_objects/npc_spawner/npc_spawner.tscn" id="3_sthg2"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_u5c0w"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -44,8 +44,12 @@ shadow_enabled = true
 [node name="Portal" parent="Entities" unique_id=2000444054 instance=ExtResource("2_u5c0w")]
 transform = Transform3D(-0.8994799, 0, -0.4369622, 0, 1, 0, 0.4369622, 0, -0.8994799, 2.6216753, 1.5, -1.2911705)
 
-[node name="Golem" parent="Entities" unique_id=940082656 instance=ExtResource("3_flvvy")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7463932, 0.75, 6.458487)
+[node name="NpcSpawners" type="Node3D" parent="Entities" unique_id=352466522]
+unique_name_in_owner = true
+
+[node name="GolemSpawner0" parent="Entities/NpcSpawners" unique_id=1855591623 instance=ExtResource("3_sthg2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.4870057, 1.106255, 0)
+npc_scene_uid = "uid://biphp16q8pund"
 
 [node name="Floor" type="StaticBody3D" parent="." unique_id=1255152001]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)

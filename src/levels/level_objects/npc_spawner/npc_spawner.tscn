@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bpgr25xbxna2s"]
+
+[ext_resource type="Script" uid="uid://uu66qqa7lpm7" path="res://src/levels/level_objects/npc_spawner/npc_spawner.gd" id="1_54811"]
+
+[node name="NpcSpawner" type="Marker3D" unique_id=1855591623]
+script = ExtResource("1_54811")
