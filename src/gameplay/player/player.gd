@@ -4,6 +4,8 @@ extends CharacterBody3D
 const MAX_ANGLE_LOOK_UP := deg_to_rad(50)
 const MAX_ANGLE_LOOK_DOWN := deg_to_rad(-50)
 
+# Movement
+@export_group("Movement")
 @export var acceleration: float = 30.0
 @export var jump_force: float = 12.0
 @export var gravity: float = 0.98
@@ -11,10 +13,14 @@ const MAX_ANGLE_LOOK_DOWN := deg_to_rad(-50)
 @export var run_speed: float = 6.0
 @export var walk_speed: float = 3.0
 
+# Combat
+@export_group("Combat")
+@export var initiative: int = 10
 
 @onready var camera: Camera3D = %PlayerCamera
 
 var input_dir := Vector2.ZERO
+var _in_combat: bool = false
 
 func _enter_tree() -> void:
 	set_multiplayer_authority(name.to_int())
@@ -22,18 +28,22 @@ func _enter_tree() -> void:
 	$Pivot/MeshInstance3D.get_surface_override_material(0).albedo_color = Color(randf(),randf(), randf(),1) 
 	Input.call_deferred("set_mouse_mode",Input.MOUSE_MODE_CAPTURED)
 	
-	%PlayerCamera.current = is_multiplayer_authority()
+	CombatManager.combat_start.connect(_on_combat_start)
+	CombatManager.combat_end.connect(_on_combat_end)
 	
 	if not is_multiplayer_authority():
 		set_process(false)
 		set_physics_process(false)
 		set_process_input(false)
+	else : 
+		%PlayerCamera.current = true
 
 	print("created player with id : ", name)
 	
 
 func _process(_delta: float) -> void:
 	if multiplayer and ! is_multiplayer_authority(): return
+	
 	input_dir = Input.get_vector("strafe_left", "strafe_right", "backward", "forward")
 
 
@@ -51,11 +61,17 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.x = move_toward(velocity.x, desired_velocity.x, acceleration * delta)
 		velocity.z = move_toward(velocity.z, desired_velocity.z, acceleration * delta)
-	move_and_slide()
+	
+	if _in_combat:
+		return
+	else :
+		move_and_slide()
+
 
 
 func _input(event: InputEvent) -> void:
 	if ! is_multiplayer_authority(): return
+	
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		rotate_y(-event.relative.x * mouse_sensitivity) # PI 3.14 => 180 degrees 
 		camera.rotate_x(-event.relative.y * mouse_sensitivity)
@@ -79,3 +95,9 @@ func process_gravity() -> void:
 
 func play_turn():
 	await get_tree().create_timer(2).timeout
+
+func _on_combat_start():
+	_in_combat = true
+
+func _on_combat_end():
+	_in_combat = false

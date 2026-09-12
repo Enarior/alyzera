@@ -133,7 +133,7 @@ func spawn_npc(spawn: Marker3D):
 	
 	if "mob_npc" in node_groups:
 		npc = npc_scene.instantiate() as MobNpc
-		npc.vision_entered.connect(%TurnManager.initialize)
+		npc.vision_entered.connect(CombatManager.start_combat)
 		%TurnManager.add_unit(npc) # TEMP
 	elif "passive_npc" in node_groups:
 		npc = npc_scene.instantiate() as PassiveNpc

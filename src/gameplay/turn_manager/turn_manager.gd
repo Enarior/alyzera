@@ -4,6 +4,9 @@ var active_character
 var turn_playing = false
 var units: Array[CharacterBody3D] = []
 
+func _ready():
+	CombatManager.turn_manager = self
+	
 func initialize():
 	print("initialize turn order")
 	if units.size()>0:
@@ -11,7 +14,15 @@ func initialize():
 		print(units.size(), " units")
 	else:
 		push_error("Can not initialize TurnManager : queue empty")
+	
+	units.sort_custom(sort_units)
 	print("units : ", units)
+	
+
+func sort_units(a , b):
+	# TODO need type check or type hinting
+	print("a : ", a.initiative, " b : ", b.initiative )
+	return a.initiative > b.initiative
 
 
 func play_turn():
