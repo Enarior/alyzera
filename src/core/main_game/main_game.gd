@@ -80,8 +80,9 @@ func _deferred_load_level(level_scene_uid : String, player_exists_: bool) -> voi
 		# FUTURE (main menu): Should have a fall back scene
 
 	_current_level = new_level as BaseLevel
-
+	
 	level_root.add_child(_current_level)
+	_spawn_npcs()
 	
 
 	if player_exists_ :
@@ -93,6 +94,7 @@ func _deferred_load_level(level_scene_uid : String, player_exists_: bool) -> voi
 func _init_player(spawned_player: Node3D) -> void:
 	player = spawned_player
 	call_deferred("_place_player_at_level_spawn")
+	%TurnManager.add_unit(player) # TEMP
 	
 ## Finds the default spawn location in currently loaded level, and places
 ##  the Player at that position.

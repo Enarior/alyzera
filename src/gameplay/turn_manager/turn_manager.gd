@@ -11,6 +11,7 @@ func initialize():
 		print(units.size(), " units")
 	else:
 		push_error("Can not initialize TurnManager : queue empty")
+	print("units : ", units)
 
 
 func play_turn():
@@ -23,4 +24,8 @@ func play_turn():
 	
 
 func add_unit(unit: CharacterBody3D):
-	units.append(unit)
+	if unit != null:
+		units.append(unit)
+	else :
+		push_error("Can't add null unit to turn order")
+		

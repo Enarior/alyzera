@@ -24,4 +24,7 @@ func _add_instance_type() -> void:
 	else:
 		instance_type_label.text = "Client"
 		
-	
+
+func _input(event: InputEvent) -> void:
+	if Input.is_action_pressed("debug_play_turn") and not %TurnManager.turn_playing:
+		%TurnManager.play_turn()
