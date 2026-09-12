@@ -16,23 +16,29 @@ const MAX_ANGLE_LOOK_DOWN := deg_to_rad(-50)
 
 var input_dir := Vector2.ZERO
 
-func enter_tree():
+func _enter_tree() -> void:
 	set_multiplayer_authority(name.to_int())
+	$Pivot/IdLabel.text = name
+	$Pivot/MeshInstance3D.get_surface_override_material(0).albedo_color = Color(randf(),randf(), randf(),1) 
+	Input.call_deferred("set_mouse_mode",Input.MOUSE_MODE_CAPTURED)
+	
+	%PlayerCamera.current = is_multiplayer_authority()
+	
+	if not is_multiplayer_authority():
+		set_process(false)
+		set_physics_process(false)
+		set_process_input(false)
 
-
-func _ready() -> void:
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-
+	print("created player with id : ", name)
+	
 
 func _process(_delta: float) -> void:
-	if !is_multiplayer_authority(): return
-
+	if multiplayer and ! is_multiplayer_authority(): return
 	input_dir = Input.get_vector("strafe_left", "strafe_right", "backward", "forward")
 
 
 func _physics_process(delta: float) -> void:
-	if !is_multiplayer_authority(): return
-
+	if ! is_multiplayer_authority(): return
 	check_jump_input()
 	process_gravity()
 	
@@ -49,11 +55,18 @@ func _physics_process(delta: float) -> void:
 
 
 func _input(event: InputEvent) -> void:
-	if event is InputEventMouseMotion:
+	if ! is_multiplayer_authority(): return
+	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		rotate_y(-event.relative.x * mouse_sensitivity) # PI 3.14 => 180 degrees 
 		camera.rotate_x(-event.relative.y * mouse_sensitivity)
 		camera.rotation.x = clampf(camera.rotation.x, MAX_ANGLE_LOOK_DOWN, MAX_ANGLE_LOOK_UP)
-
+	
+	
+	if Input.is_action_just_pressed("toggle_mouse_mode"):
+		if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+		else:
+			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func check_jump_input() -> void:
 	if is_on_floor() and Input.is_action_just_pressed("jump"):
