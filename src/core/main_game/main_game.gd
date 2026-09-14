@@ -39,7 +39,6 @@ func _input(event:InputEvent):
 			pause_root.show()
 			_paused = true
 			Input.call_deferred("set_mouse_mode",Input.MOUSE_MODE_VISIBLE)
-
 		else :
 			pause_root.hide()
 			_paused = false
@@ -96,6 +95,10 @@ func _init_player(spawned_player: Node3D) -> void:
 	call_deferred("_place_player_at_level_spawn")
 	%TurnManager.add_unit(player) # TEMP
 	
+	%CombatManager.combat_start.connect(player._on_combat_start)
+	%CombatManager.combat_end.connect(player._on_combat_end)
+
+
 ## Finds the default spawn location in currently loaded level, and places
 ##  the Player at that position.
 func _place_player_at_level_spawn() -> void:
@@ -109,7 +112,6 @@ func _place_player_at_level_spawn() -> void:
 
 	var new_pos = _current_level.get_default_player_spawn()
 	player.global_position = new_pos
-	print("changing pos")
 
 func _spawn_npcs():
 	var spawns = _current_level.get_npc_spawns()
@@ -133,7 +135,7 @@ func spawn_npc(spawn: Marker3D):
 	
 	if "mob_npc" in node_groups:
 		npc = npc_scene.instantiate() as MobNpc
-		npc.vision_entered.connect(CombatManager.start_combat)
+		npc.vision_entered.connect(%CombatManager.start_combat)
 		%TurnManager.add_unit(npc) # TEMP
 	elif "passive_npc" in node_groups:
 		npc = npc_scene.instantiate() as PassiveNpc

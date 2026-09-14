@@ -10,9 +10,7 @@ func _ready() -> void:
 	
 
 func spawn_player(id: int=1) -> void:
-	print("multiplayer.peer_connected, id : ", id)
 	if !multiplayer.is_server(): return
-	print("multiplayer.is_server TRUE ", id)
 	
 	var player_scene : PackedScene = ResourceLoader.load(PLAYER_SCENE_UID) as PackedScene
 	if player_scene == null:

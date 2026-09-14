@@ -20,6 +20,8 @@ func _physics_process(delta: float) -> void:
 
 func play_turn():
 	await get_tree().create_timer(2).timeout
+	print("im golem playing turn")
+	end_turn.emit()
 
 
 func _on_vision_zone_body_entered(body: Node3D) -> void:

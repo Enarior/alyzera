@@ -1,10 +1,12 @@
 [gd_scene format=3 uid="uid://d27tq4r3kp8qr"]
 
 [ext_resource type="Script" uid="uid://dxfi0mrtngyn7" path="res://src/core/main_game/main_game.gd" id="1_3fed5"]
-[ext_resource type="PackedScene" uid="uid://dttwvv3r5a6p3" path="res://src/gameplay/turn_manager/turn_manager.tscn" id="2_6n4xl"]
+[ext_resource type="PackedScene" uid="uid://dttwvv3r5a6p3" path="res://src/core/systems/turn_manager/turn_manager.tscn" id="2_6n4xl"]
 [ext_resource type="PackedScene" uid="uid://bxnbd203wci4j" path="res://src/debug/debug_overlay.tscn" id="2_6yl8a"]
 [ext_resource type="PackedScene" uid="uid://cqwx7f7hp2o3k" path="res://src/gameplay/ui/multiplayer_buttons.tscn" id="2_ibp4d"]
 [ext_resource type="Script" uid="uid://bsflm3q0n2tt8" path="res://src/core/multiplayer/multiplayer_spawner.gd" id="3_6n4xl"]
+[ext_resource type="PackedScene" uid="uid://b8eubq7yts3kw" path="res://src/core/systems/combat_manager/combat_manager.tscn" id="3_l0hoa"]
+[ext_resource type="PackedScene" uid="uid://cugrjgidu01wo" path="res://src/gameplay/ui/combat_hud.tscn" id="4_n4iq1"]
 
 [node name="MainGame" type="Node" unique_id=2126897557]
 process_mode = 3
@@ -13,6 +15,9 @@ script = ExtResource("1_3fed5")
 [node name="Systems" type="Node" parent="." unique_id=510041305]
 
 [node name="TurnManager" parent="Systems" unique_id=935003780 instance=ExtResource("2_6n4xl")]
+unique_name_in_owner = true
+
+[node name="CombatManager" parent="Systems" unique_id=2089106745 instance=ExtResource("3_l0hoa")]
 unique_name_in_owner = true
 
 [node name="World" type="Node3D" parent="." unique_id=777996568]
@@ -37,6 +42,10 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="MultiplayerButtons" parent="HUDLayer/HUDRoot" unique_id=1385616990 instance=ExtResource("2_ibp4d")]
+layout_mode = 1
+
+[node name="CombatHUD" parent="HUDLayer/HUDRoot" unique_id=94372681 instance=ExtResource("4_n4iq1")]
+visible = false
 layout_mode = 1
 
 [node name="PauseLayer" type="CanvasLayer" parent="." unique_id=1978506572]

@@ -1,0 +1,102 @@
+[gd_scene format=3 uid="uid://cugrjgidu01wo"]
+
+[ext_resource type="Script" uid="uid://bwa0vo1uq1lj8" path="res://src/gameplay/ui/combat_hud.gd" id="1_yq2jv"]
+
+[node name="CombatHUD" type="Control" unique_id=94372681]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_yq2jv")
+
+[node name="Label" type="Label" parent="." unique_id=899337996]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -45.0
+offset_top = 27.0
+offset_right = 45.0
+offset_bottom = 50.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 24
+text = "IN COMBAT"
+
+[node name="CurrentlyPlayingLabel" type="Label" parent="." unique_id=1115414545]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -154.0
+offset_top = 68.0
+offset_right = -8.0
+offset_bottom = 91.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 16
+text = "Currently playing : "
+
+[node name="ActiveCharacterLabel" type="Label" parent="." unique_id=116554142]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -1.0
+offset_top = 68.0
+offset_right = 145.0
+offset_bottom = 91.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 16
+text = "..."
+
+[node name="TurnHud" type="Control" parent="." unique_id=1091919819]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="YourTurnLabel" type="Label" parent="TurnHud" unique_id=1400896586]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 509.5
+offset_top = 100.0
+offset_right = 602.5
+offset_bottom = 123.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 16
+text = "YOUR TURN"
+
+[node name="AttackButton" type="Button" parent="TurnHud" unique_id=654621386]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 729.0
+offset_top = 534.0
+offset_right = 905.0
+offset_bottom = 593.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "ATTACK"
+
+[node name="EndTurnButton" type="Button" parent="TurnHud" unique_id=1574576879]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 921.0
+offset_top = 534.0
+offset_right = 1097.0
+offset_bottom = 593.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "END TURN"
+
+[connection signal="pressed" from="TurnHud/AttackButton" to="." method="_on_attack_button_pressed"]
+[connection signal="pressed" from="TurnHud/EndTurnButton" to="." method="_on_end_turn_button_pressed"]

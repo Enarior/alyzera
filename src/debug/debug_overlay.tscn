@@ -15,7 +15,7 @@ script = ExtResource("1_ggiji")
 [node name="ItemList" type="ItemList" parent="." unique_id=110158597]
 layout_mode = 0
 offset_right = 119.0
-offset_bottom = 74.0
+offset_bottom = 112.0
 
 [node name="VersionInfoLabel" type="Label" parent="ItemList" unique_id=1812705186]
 unique_name_in_owner = true
@@ -39,3 +39,10 @@ offset_top = 45.0
 offset_right = 40.0
 offset_bottom = 68.0
 text = "Instance Type"
+
+[node name="IDLabel" type="Label" parent="ItemList" unique_id=1346367478]
+layout_mode = 0
+offset_top = 73.0
+offset_right = 119.0
+offset_bottom = 96.0
+text = "ID : "

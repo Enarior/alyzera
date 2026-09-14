@@ -16,33 +16,32 @@ const MAX_ANGLE_LOOK_DOWN := deg_to_rad(-50)
 # Combat
 @export_group("Combat")
 @export var initiative: int = 10
+@export var attack_range: int = 10
+var playing = false
 
+signal end_turn
 @onready var camera: Camera3D = %PlayerCamera
 
 var input_dir := Vector2.ZERO
-var _in_combat: bool = false
+@export var _in_combat: bool = false
 
 func _enter_tree() -> void:
 	set_multiplayer_authority(name.to_int())
 	$Pivot/IdLabel.text = name
 	$Pivot/MeshInstance3D.get_surface_override_material(0).albedo_color = Color(randf(),randf(), randf(),1) 
 	Input.call_deferred("set_mouse_mode",Input.MOUSE_MODE_CAPTURED)
-	
-	CombatManager.combat_start.connect(_on_combat_start)
-	CombatManager.combat_end.connect(_on_combat_end)
-	
-	if not is_multiplayer_authority():
+
+	if is_multiplayer_authority():
+		print(get_multiplayer_authority(), " is auth of ", name)
+		%PlayerCamera.current = true
+	else:
 		set_process(false)
 		set_physics_process(false)
 		set_process_input(false)
-	else : 
-		%PlayerCamera.current = true
 
-	print("created player with id : ", name)
-	
 
 func _process(_delta: float) -> void:
-	if multiplayer and ! is_multiplayer_authority(): return
+	if multiplayer and !is_multiplayer_authority(): return
 	
 	input_dir = Input.get_vector("strafe_left", "strafe_right", "backward", "forward")
 
@@ -66,7 +65,6 @@ func _physics_process(delta: float) -> void:
 		return
 	else :
 		move_and_slide()
-
 
 
 func _input(event: InputEvent) -> void:
@@ -94,10 +92,12 @@ func process_gravity() -> void:
 		velocity.y -= gravity
 
 func play_turn():
-	await get_tree().create_timer(2).timeout
+	#await get_tree().create_timer(2).timeout
+	pass
 
 func _on_combat_start():
 	_in_combat = true
+	print("combat start for player ", name, " on system with auth ", get_multiplayer_authority())
 
 func _on_combat_end():
 	_in_combat = false
