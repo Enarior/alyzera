@@ -11,7 +11,7 @@ func _ready() -> void:
 	_add_version()
 	_add_instance_type()
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	fps_label.set_text("FPS: " + str(Engine.get_frames_per_second()))
 
 func _add_version() -> void:
@@ -25,6 +25,6 @@ func _add_instance_type() -> void:
 		instance_type_label.text = "Client"
 		
 
-func _input(event: InputEvent) -> void:
+func _input(_event: InputEvent) -> void:
 	if Input.is_action_pressed("debug_play_turn") and not %TurnManager.turn_playing:
 		%TurnManager.play_turn()

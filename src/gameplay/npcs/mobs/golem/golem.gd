@@ -3,13 +3,17 @@ class_name Golem
 
 signal vision_entered
 
+# Combat
+@export_group("Combat")
+@export var health: int = 25
+
 const SPEED = 3.0
 const JUMP_VELOCITY = 4.5
 
 var target : Node3D
 
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if target:
 		velocity = position.direction_to(target.position)
 	else:

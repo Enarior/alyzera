@@ -28,12 +28,12 @@ func _ready() -> void:
 
 	#_init_player()
 
-	_load_level(LEVEL_00_UID, false)
+	#_load_level(LEVEL_00_UID, false)
 	
-	Global.change_level.connect(_load_level)
+	#Global.change_level.connect(_load_level)
 	$MultiplayerSpawner.player_spawned.connect(_init_player)
 	
-func _input(event:InputEvent):
+func _input(_event:InputEvent):
 	if Input.is_action_just_pressed("pause"):
 		if not _paused:
 			pause_root.show()
@@ -43,7 +43,6 @@ func _input(event:InputEvent):
 			pause_root.hide()
 			_paused = false
 			Input.call_deferred("set_mouse_mode",Input.MOUSE_MODE_CAPTURED)
-
 
 
 ## Called for loading a level scene.
@@ -93,6 +92,7 @@ func _deferred_load_level(level_scene_uid : String, player_exists_: bool) -> voi
 func _init_player(spawned_player: Node3D) -> void:
 	player = spawned_player
 	call_deferred("_place_player_at_level_spawn")
+
 	%TurnManager.add_unit(player) # TEMP
 	
 	%CombatManager.combat_start.connect(player._on_combat_start)
@@ -115,37 +115,8 @@ func _place_player_at_level_spawn() -> void:
 
 func _spawn_npcs():
 	var spawns = _current_level.get_npc_spawns()
-
 	for spawn in spawns:
-		spawn_npc(spawn)
-
-
-func spawn_npc(spawn: Marker3D):
-	var npc_scene_uid = spawn.npc_scene_uid
-	var npc_scene : PackedScene = ResourceLoader.load(npc_scene_uid) as PackedScene
-	
-	if npc_scene == null:
-		push_error("Could not load npc scene: " + npc_scene_uid)
-		return
-		
-	var npc = null
-	var state = npc_scene.get_state()
-	var node_groups = state.get_node_groups(0)
-
-	
-	if "mob_npc" in node_groups:
-		npc = npc_scene.instantiate() as MobNpc
-		npc.vision_entered.connect(%CombatManager.start_combat)
-		%TurnManager.add_unit(npc) # TEMP
-	elif "passive_npc" in node_groups:
-		npc = npc_scene.instantiate() as PassiveNpc
-	
-	if npc == null:
-		push_error("Loaded npc scene does not extend NPc or DNE: " + npc_scene_uid)
-		return
-	
-	entity_root.add_child(npc)
-	npc.global_position = spawn.global_position
+		$MultiplayerSpawner.spawn_npc(spawn)
 
 
 ## Attaches player to the current camera as the target
@@ -168,3 +139,7 @@ func _init_systems() -> void:
 
 func _on_server_button_pressed() -> void:
 	pass # Replace with function body.
+
+
+func _on_multiplayer_buttons_joined() -> void:
+	_load_level(LEVEL_00_UID, false)

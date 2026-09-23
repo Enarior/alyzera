@@ -17,6 +17,7 @@ const MAX_ANGLE_LOOK_DOWN := deg_to_rad(-50)
 @export_group("Combat")
 @export var initiative: int = 10
 @export var attack_range: int = 10
+@export var health: int = 100
 var playing = false
 
 signal end_turn
@@ -32,7 +33,6 @@ func _enter_tree() -> void:
 	Input.call_deferred("set_mouse_mode",Input.MOUSE_MODE_CAPTURED)
 
 	if is_multiplayer_authority():
-		print(get_multiplayer_authority(), " is auth of ", name)
 		%PlayerCamera.current = true
 	else:
 		set_process(false)
@@ -60,7 +60,7 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.x = move_toward(velocity.x, desired_velocity.x, acceleration * delta)
 		velocity.z = move_toward(velocity.z, desired_velocity.z, acceleration * delta)
-	
+
 	if _in_combat:
 		return
 	else :
@@ -97,7 +97,7 @@ func play_turn():
 
 func _on_combat_start():
 	_in_combat = true
-	print("combat start for player ", name, " on system with auth ", get_multiplayer_authority())
+	Global.print_with_id("combat start for player " + name)
 
 func _on_combat_end():
 	_in_combat = false

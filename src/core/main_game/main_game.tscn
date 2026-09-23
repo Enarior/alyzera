@@ -119,6 +119,8 @@ anchor_bottom = 0.5
 mouse_filter = 2
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=1148424580]
-_spawnable_scenes = PackedStringArray("uid://ccmaxn3cpfig0")
+_spawnable_scenes = PackedStringArray("uid://ccmaxn3cpfig0", "uid://biphp16q8pund")
 spawn_path = NodePath("../World/EntityRoot")
 script = ExtResource("3_6n4xl")
+
+[connection signal="joined" from="HUDLayer/HUDRoot/MultiplayerButtons" to="." method="_on_multiplayer_buttons_joined"]

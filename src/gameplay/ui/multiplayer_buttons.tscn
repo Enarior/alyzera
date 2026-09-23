@@ -26,7 +26,7 @@ offset_right = 29.0
 offset_bottom = 15.5
 grow_horizontal = 2
 grow_vertical = 2
-text = "Server"
+text = "Host"
 
 [node name="ClientButton" type="Button" parent="." unique_id=2120773305]
 layout_mode = 1
