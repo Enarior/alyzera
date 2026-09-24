@@ -20,7 +20,7 @@ config/icon="res://icon.svg"
 
 Global="*uid://5b53umuwoae"
 HighLevelNetworkHandler="*uid://bp2bx1q5ut6w1"
-CombatManager="uid://bx6jvvditgts6"
+CombatManager="*uid://bx6jvvditgts6"
 
 [display]
 

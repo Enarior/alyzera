@@ -38,6 +38,7 @@ func _enter_tree() -> void:
 		set_process(false)
 		set_physics_process(false)
 		set_process_input(false)
+	
 
 
 func _process(_delta: float) -> void:
@@ -95,9 +96,15 @@ func play_turn():
 	#await get_tree().create_timer(2).timeout
 	pass
 
-func _on_combat_start():
+@rpc("any_peer", "call_local")
+func start_combat():
 	_in_combat = true
-	Global.print_with_id("combat start for player " + name)
+	var is_auth = is_multiplayer_authority()
+	Global.print_with_id("combat start for player " + name + ", is_auth : " +  str(is_auth))
+	print(_in_combat)
 
-func _on_combat_end():
+func end_combat():
 	_in_combat = false
+	var is_auth = is_multiplayer_authority()
+
+	Global.print_with_id("combat end for player " + name + ", is_auth : " +  str(is_auth))

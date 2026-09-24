@@ -12,7 +12,7 @@ const JUMP_VELOCITY = 4.5
 
 var target : Node3D
 
-
+	
 func _physics_process(_delta: float) -> void:
 	if target:
 		velocity = position.direction_to(target.position)

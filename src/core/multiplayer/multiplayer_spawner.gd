@@ -10,11 +10,12 @@ signal player_spawned
 func _ready() -> void:
 	multiplayer.peer_connected.connect(spawn_player)
 	HighLevelNetworkHandler.server_started.connect(spawn_player)
+	#spawn_function = connect_signals
 	
 
 func spawn_player(id: int=1) -> void:
 	if !multiplayer.is_server(): return
-	
+
 	var player_scene : PackedScene = ResourceLoader.load(PLAYER_SCENE_UID) as PackedScene
 	if player_scene == null:
 		push_error("Could not load player scene: " + PLAYER_SCENE_UID)
@@ -29,7 +30,11 @@ func spawn_player(id: int=1) -> void:
 	player.name = str(id)
 
 	get_node(spawn_path).call_deferred("add_child", player)
-	player_spawned.emit(player)
+	#player_spawned.emit(player)
+
+#	%CombatManager.combat_start.connect(player._on_combat_start)
+#	%CombatManager.combat_end.connect(player._on_combat_end)
+	Global.print_with_id("player combat start signal connected for player " + player.name)
 
 
 func spawn_npc(spawn: Marker3D):
@@ -49,10 +54,13 @@ func spawn_npc(spawn: Marker3D):
 
 	if "mob_npc" in node_groups:
 		npc = npc_scene.instantiate() as MobNpc
-		npc.vision_entered.connect(%CombatManager.start_combat)
 	
 		%TurnManager.add_unit(npc) # TEMP
-		
+
+		if npc is Golem:
+			npc.vision_entered.connect(%CombatManager.start_combat)
+			Global.print_with_id("golem vision entered signal connected")
+
 	elif "passive_npc" in node_groups:
 		npc = npc_scene.instantiate() as PassiveNpc
 	
@@ -62,3 +70,15 @@ func spawn_npc(spawn: Marker3D):
 	
 	entity_root.add_child(npc)
 	npc.global_position = spawn.global_position
+
+	
+
+func connect_signals(data):
+	print("connect signals")
+	if data is Player:
+		%CombatManager.combat_start.connect(data._on_combat_start.rcp())
+		%CombatManager.combat_end.connect(data._on_combat_end)
+		Global.print_with_id("player combat start signal connected")
+	elif data is Golem:
+		data.vision_entered.connect(%CombatManager.start_combat)
+		Global.print_with_id("golem vision entered signal connected")

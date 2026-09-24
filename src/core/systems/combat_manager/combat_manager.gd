@@ -1,14 +1,15 @@
 extends Node3D
 
-signal combat_start
-signal combat_end
-
 var in_combat
 var players
 var mobs
 
+signal combat_start
+signal combat_end
+
 func start_combat():
 	if in_combat: return
+	combat_start.emit()
 	in_combat = true
 	%TurnManager.initialize()
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
@@ -16,23 +17,19 @@ func start_combat():
 	players = get_tree().get_nodes_in_group("player")
 	mobs = get_tree().get_nodes_in_group("mob_npc")
 	
-	_emit_combat_start.rpc()
-	
+	Global.print_with_id("combat manager combat start")
+	for player in players:
+		player.start_combat.rpc()
+
 #
 #func _play_turn():
 	#var players = get_tree().get_nodes_in_group("player")
 	#var mobs = get_tree().get_nodes_in_group("mob_npc")
 
-@rpc("authority", "call_local", "reliable")
-func _emit_combat_start():
-	#Global.("combat started rpc called")
-	combat_start.emit()
-
 	
 
 func _end_combat():
 	in_combat = false
-	combat_end.emit()
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func end_turn():

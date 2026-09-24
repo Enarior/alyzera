@@ -31,7 +31,8 @@ func _ready() -> void:
 	#_load_level(LEVEL_00_UID, false)
 	
 	#Global.change_level.connect(_load_level)
-	$MultiplayerSpawner.player_spawned.connect(_init_player)
+	$MultiplayerSpawner.spawned.connect(_init_unit)
+
 	
 func _input(_event:InputEvent):
 	if Input.is_action_just_pressed("pause"):
@@ -87,6 +88,12 @@ func _deferred_load_level(level_scene_uid : String, player_exists_: bool) -> voi
 		_place_player_at_level_spawn()
 	#_setup_level_camera()
 
+func _init_unit(spawned_unit: Node3D)-> void:
+	if spawned_unit is Player:
+		_init_player(spawned_unit)
+	else:
+		pass
+		
 
 ## Instantiates the player and adds it to the entity layer
 func _init_player(spawned_player: Node3D) -> void:
@@ -94,9 +101,6 @@ func _init_player(spawned_player: Node3D) -> void:
 	call_deferred("_place_player_at_level_spawn")
 
 	%TurnManager.add_unit(player) # TEMP
-	
-	%CombatManager.combat_start.connect(player._on_combat_start)
-	%CombatManager.combat_end.connect(player._on_combat_end)
 
 
 ## Finds the default spawn location in currently loaded level, and places
